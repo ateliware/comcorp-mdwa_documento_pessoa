@@ -1,0 +1,23 @@
+  documentos_pessoa:
+    create_success: "Documento pessoa created."
+    update_success: "Documento pessoa updated."
+    destroy_success: "Documento pessoa destroyed."
+    index_title: "Documentos pessoa"
+    show_title: "Documento pessoa"
+    new_title: "New Documento pessoa"
+    edit_title: "Edit Documento pessoa"
+    edit:
+      cpf: "CPF"
+      cnpj: "CNPJ"
+      inscricao_estadual: "Inscrição Estadual"
+      rg: "RG"
+      id: "ID"
+      fisico_juridico: "Físico / Jurídico"
+    fisica: 'Pessoa Física'
+    juridica: 'Pessoa Jurídica'
+    fisico: "Físico"
+    juridico: "Jurídico"
+    cpf: "CPF:"
+    cnpj: "CNPJ"
+    fisico_juridico: "Físico / Jurídico"
+

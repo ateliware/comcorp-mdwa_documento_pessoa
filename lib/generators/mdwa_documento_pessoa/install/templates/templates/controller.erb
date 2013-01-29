@@ -1,0 +1,9 @@
+# -*- encoding : utf-8 -*-
+class A::DocumentosPessoaController < A::BackendController
+
+  load_and_authorize_resource :class => "A::DocumentoPessoa"
+  
+  # Hook for code generations. Do not delete.
+  #===controller_init===
+
+end

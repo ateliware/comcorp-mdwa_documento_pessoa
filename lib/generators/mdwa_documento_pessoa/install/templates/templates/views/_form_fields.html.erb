@@ -1,0 +1,20 @@
+<div class="field">
+ 	<%%= f.label :fisico_juridico, t( "documentos_pessoa.edit.fisico_juridico") %> 
+ 	<%%= f.select :fisico_juridico, options_for_select( A::DocumentoPessoa.options_fisico_juridico, (f.object.new_record?) ? (params[:pessoa].blank?) ? "" : "" : f.object.fisico_juridico ), {}, {:class => 'select_fisico_juridico'} %>
+</div>
+<div class="field fisico">
+ 	<%%= f.label :cpf, t( "documentos_pessoa.edit.cpf") %> 
+ 	<%%= f.text_field :cpf, :onkeypress => "mascara(this, checaCPF)", :maxlength => 14 %>
+</div>
+<div class="field fisico">
+ 	<%%= f.label :rg, t( "documentos_pessoa.edit.rg") %> 
+ 	<%%= f.text_field :rg %>
+</div>
+<div class="field juridico">
+ 	<%%= f.label :cnpj, t( "documentos_pessoa.edit.cnpj") %> 
+ 	<%%= f.text_field :cnpj, :onkeypress => "mascara( this, checaCNPJ )", :maxlength => 18 %>
+</div>
+<div class="field juridico">
+ 	<%%= f.label :inscricao_estadual, t( "documentos_pessoa.edit.inscricao_estadual") %> 
+ 	<%%= f.text_field :inscricao_estadual %>
+</div>

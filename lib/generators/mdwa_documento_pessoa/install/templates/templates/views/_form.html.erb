@@ -1,0 +1,18 @@
+<%%= form_for(@documento_pessoa) do |f| %>
+
+	<div id="mdwa_error">
+	   	<%%= render '/template/mdwa/crud_error', :object => @documento_pessoa %>
+	</div>
+	
+	<div class="yui3-g">
+		<div class="yui3-u">
+			<%%= render 'form_fields', :f => f %>
+  	</div>
+	</div>
+
+	<div class="actions">
+		<%%= link_to t('system.cancel_button'), a_documentos_pessoa_path, :class => :cancel %> 
+    <%%= f.submit :class => :button %>
+	</div>
+
+<%% end %>

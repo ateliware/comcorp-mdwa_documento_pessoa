@@ -1,0 +1,63 @@
+# -*- encoding : utf-8 -*-
+module A
+  class DocumentoPessoa < ActiveRecord::Base
+  
+    attr_accessible :fisico_juridico, :cpf, :cnpj, :rg, :inscricao_estadual
+
+    usar_como_cpf :cpf
+    usar_como_cnpj :cnpj
+
+    # validates :cpf, :presence => true, :if => :fisico?
+    # validates :cnpj, :presence => true, :if => :juridico?
+
+    FISICO    = 0
+    JURIDICO  = 1
+    
+    # Retorna se documento é do tipo fisico
+    def fisico?
+      return self.fisico_juridico.to_i == A::DocumentoPessoa::FISICO
+    end
+    
+    # Retorna se documento é do tipo juridico
+    def juridico?
+      return self.fisico_juridico.to_i == A::DocumentoPessoa::JURIDICO
+    end
+
+    # Retorna o texto "Físico" para documentos físicos e "Jurídico" para documentos juridicos
+    def fisico_juridico_to_s
+      return I18n.t( "documentos_pessoa.fisico") if self.fisico?
+      return I18n.t( "documentos_pessoa.juridico") if self.juridico?
+    end
+    
+    # Retorna um vetor com as opções para a criação de uma combobox com os tipos de documento
+    def self.options_fisico_juridico
+      return [ [I18n.t('documentos_pessoa.fisica'), A::DocumentoPessoa::FISICO], [I18n.t('documentos_pessoa.juridica'), A::DocumentoPessoa::JURIDICO] ]
+    end
+
+    # Retorna em formato de texto se um documento é fisico ou jurídico
+    def tipo_documento_to_s
+      return I18n.t( 'documentos_pessoa.cpf' ) if self.fisico?
+      return I18n.t( 'documentos_pessoa.cnpj') if self.juridico?
+    end
+
+    # Retorna o documento principal
+    # Documento jurídico, principal é o CNPJ
+    # Documento físico, principal é o CPF
+    def documento_principal
+      return self.cpf if self.fisico?
+      return self.cnpj if self.juridico?
+    end
+
+    # Fornece a descrição do documento:
+    # Documento jurídico: CNPJ, Inscricao Estadual
+    # Documento fisico: CPF, RG
+    def nome_completo
+      if self.juridico?
+        return "#{I18n.t 'documentos_pessoa.index_cnpj'}: #{self.cnpj}#{ (!self.inscricao_estadual.blank? ) ? ", #{I18n.t 'documentos_pessoa.index_inscricao_estadual'}: #{self.inscricao_estadual}" : ""}"
+      else
+        return "#{I18n.t 'documentos_pessoa.index_cpf'}: #{self.cpf}#{ (!self.rg.blank?) ? ", #{I18n.t 'documentos_pessoa.index_rg'}: #{self.rg}" : "" }"
+      end
+    end
+
+  end
+end

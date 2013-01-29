@@ -1,0 +1,20 @@
+$(function() {
+	atualizarSelectFisicoJuridico($("select.select_fisico_juridico"));
+  $(document).on('change', "select.select_fisico_juridico", function() {
+		atualizarSelectFisicoJuridico( $(this) );
+	});
+});
+
+function atualizarSelectFisicoJuridico(combo) {
+
+	if( $(combo).val() == <%= A::DocumentoPessoa::FISICO %> ) {
+    $("div.fisico", $(combo).parent().parent().parent().parent()).css( "display", "block" );
+    $("div.juridico", $(combo).parent().parent().parent().parent()).css( "display", "none" );
+    $("div.juridico input[type='text']", $(combo).parent().parent().parent().parent()).val( "" );
+  }
+  else {
+    $("div.fisico", $(combo).parent().parent().parent().parent()).css( "display", "none" );
+    $("div.fisico input[type='text']", $(combo).parent().parent().parent().parent()).val( "" );
+    $("div.juridico", $(combo).parent().parent().parent().parent()).css( "display", "block" );
+  }
+}
