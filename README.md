@@ -1,29 +1,54 @@
-# MdwaDocumentoPessoa
+# MDWA - Documentos de Pessoa
 
-TODO: Write a gem description
+Cria o cadastro de documentos para pessoas, utilizando modelos MDWA.
 
-## Installation
+## Instalação
 
-Add this line to your application's Gemfile:
+Adicione ao Gemfile:
 
     gem 'mdwa_documento_pessoa'
 
-And then execute:
+Rode o bundle:
 
     $ bundle
 
-Or install it yourself as:
+Ou instale diretamente do Rubygems:
 
     $ gem install mdwa_documento_pessoa
 
-## Usage
+## Utilização
 
-TODO: Write usage instructions here
+Crie uma entidade MDWA referenciando da seguinte forma:
 
-## Contributing
+		require 'mdwa/dsl'
+		MDWA::DSL.entities.register "Cliente" do |e|
+			#...
+			e.association do |a|
+	    	a.type = 'one_to_one'
+	    	a.destination = 'DocumentoPessoa' 
+	    	a.composition = true
+	  	end
+  	end
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+A maior parte do código é gerada automaticamente, porém em alguns trechos é necessário código manual:
+Na view que inclui a parcial do cadastro de endereços, é necessário especificar qual o objeto (params) que referencia o endereço. Para isso utilize:
+		
+		<%= render 'a/enderecos/form_fields', :f => ff, :tipo => 'a_cliente' %>
+
+O controller que referencia o endereço também ter adaptações para indicar a cidade:
+		class A::ClientesController ...
+
+			def create
+				@cliente = A::Cliente.new(params[:a_cliente])
+		    @cliente.endereco.cidade_id = params[:cidade_id]
+		    ...
+			end
+
+			def update
+				@cliente.attributes = params[:a_cliente]
+		    @cliente.endereco.cidade_id = params[:cidade_id]
+		    saved_ok = @cliente.save
+			end
+		end
+
+Boa sorte.
