@@ -1,3 +1,4 @@
+pt-BR:
   documentos_pessoa:
     create_success: "Documento pessoa criado."
     update_success: "Documento pessoa atualizado."

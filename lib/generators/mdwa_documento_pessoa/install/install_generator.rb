@@ -28,19 +28,13 @@ module MdwaDocumentoPessoa
 		end
 
 		def locales
-
-			create_file 'config/locales/mdwa.specific.en.yml', "en:\n" unless File.exists?('config/locales/mdwa.specific.en.yml')
-			create_file 'config/locales/mdwa.specific.pt-BR.yml', "pt-BR:\n" unless File.exists?('config/locales/mdwa.specific.pt-BR.yml')
-
-			en = File.read( File.join(File.expand_path("../templates", __FILE__), "locales", "mdwa.documento_pessoa.en.yml") )
-			pt_br = File.read File.join(File.expand_path("../templates", __FILE__), "locales", "mdwa.documento_pessoa.pt-BR.yml")
-			append_file 'config/locales/mdwa.specific.en.yml', en, :after => "en:\n"
-			append_file 'config/locales/mdwa.specific.pt-BR.yml', pt_br, :after => "pt-BR:\n"
+			copy_file 'locales/mdwa.documento_pessoa.en.yml', 'config/locales/mdwa.documento_pessoa.en.yml' unless File.exists?(Rails.root + 'config/locales/mdwa.documento_pessoa.en.yml')
+			copy_file 'locales/mdwa.documento_pessoa.pt-BR.yml', 'config/locales/mdwa.documento_pessoa.pt-BR.yml' unless File.exists?(Rails.root + 'config/locales/mdwa.documento_pessoa.pt-BR.yml')
 		end
 
 		def rodar_transformacao
 			if yes? "Deseja rodar a transformação dos templates de documento_pessoa?"
-				generate "mdwa:transform DocumentoPessoa"
+				generate "mdwa:transform DocumentoPessoa --skip-locales"
 			end
 		end
 
