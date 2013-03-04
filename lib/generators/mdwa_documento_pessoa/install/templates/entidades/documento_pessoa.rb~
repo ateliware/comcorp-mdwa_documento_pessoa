@@ -7,7 +7,7 @@ MDWA::DSL.entities.register "DocumentoPessoa" do |e|
   e.scaffold_name = 'a/documento_pessoa'
   e.model_name = 'a/documento_pessoa'
 
-  e.attribute 'fisico_juridico', 'integer'
+  e.attribute 'fisico_juridico', 'boolean'
   e.attribute 'cpf', 'string'
   e.attribute 'cnpj', 'string'
   e.attribute 'rg', 'string'
